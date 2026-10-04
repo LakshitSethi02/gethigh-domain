@@ -1,15 +1,50 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import '@fontsource/anton';
+import '@fontsource-variable/baloo-2/wght.css';
+import '@fontsource-variable/inter/wght.css';
 import './globals.css';
 
+const siteUrl = 'https://gethigh.in';
+const title = 'gethigh.in — A Premium .in Domain, For Sale';
+const description =
+  'gethigh.in is a seven-letter, one-word .in domain available for purchase. Ready to transfer today — make an offer, all inquiries confidential.';
+
 export const metadata: Metadata = {
-  title: 'gethigh.in - Premium Domain For Sale',
-  description: 'Acquire the premium domain gethigh.in for your next brand, startup, or e-commerce venture.',
-  openGraph: {
-    title: 'gethigh.in - Premium Domain For Sale',
-    description: 'Make an offer and acquire gethigh.in today.',
-    url: 'https://gethigh.in',
-    siteName: 'gethigh.in',
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  alternates: {
+    canonical: '/',
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: 'gethigh.in',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0b0b14',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'gethigh.in',
+  description,
+  category: 'Domain Name',
 };
 
 export default function RootLayout({
@@ -18,8 +53,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-neutral-950 text-neutral-50 antialiased selection:bg-emerald-500 selection:text-neutral-950">
+    <html lang="en" className="dark scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className="bg-ink text-white font-sans antialiased selection:bg-grad-mid selection:text-white">
         {children}
       </body>
     </html>

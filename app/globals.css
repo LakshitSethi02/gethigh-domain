@@ -6,7 +6,27 @@
   color-scheme: dark;
 }
 
-body {
-  background-color: #0a0a0a;
-  color: #fafafa;
+.text-gradient-brand {
+  background-image: linear-gradient(90deg, #a855f7 0%, #ec4899 55%, #f5a96e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Visible keyboard focus, matched to the accent color */
+:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 3px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

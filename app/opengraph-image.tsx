@@ -31,7 +31,7 @@ export default function Image() {
             marginBottom: 8,
           }}
         >
-          AVAILABLE FOR ACQUISITION
+          AVAILABLE TO BUY OR RENT
         </div>
         <div
           style={{
@@ -50,7 +50,7 @@ export default function Image() {
             display: 'flex',
           }}
         >
-          A name with room to rise. Make an offer.
+          A name with room to rise. Buy or rent.
         </div>
       </div>
     ),

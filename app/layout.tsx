@@ -5,7 +5,7 @@ import './globals.css';
 const siteUrl = 'https://gethigh.in';
 const title = 'gethigh.in | A name with room to rise';
 const description =
-  'Acquire gethigh.in, a memorable seven-letter .in domain. Explore the possibilities and make an offer directly to the owner.';
+  'Buy or rent gethigh.in, a memorable seven-letter .in domain. Explore the possibilities and discuss purchase or rental terms directly with the owner.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -16,6 +16,7 @@ export default function DomainLandingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [enquiryType, setEnquiryType] = useState('buy');
   const sending = useRef(false);
   const feedback = useRef<HTMLDivElement>(null);
 
@@ -38,11 +39,13 @@ export default function DomainLandingPage() {
     const timeout = setTimeout(() => controller.abort(), 15000);
     const payload = new FormData();
     payload.append('access_key', '1804ca0e-a42b-42a2-88d9-6fc1307065ca');
-    payload.append('subject', 'New offer for gethigh.in');
+    const renting = fields.get('enquiry_type') === 'rent';
+    payload.append('subject', renting ? 'New rental enquiry for gethigh.in' : 'New purchase offer for gethigh.in');
+    payload.append('enquiry_type', renting ? 'Rent' : 'Buy');
     payload.append('from_name', name);
     payload.append('name', name);
     payload.append('email', email);
-    payload.append('offer', `${fields.get('currency')} ${amount}`);
+    payload.append('offer', `${fields.get('currency')} ${amount}${renting ? ' per month' : ''}`);
     payload.append('intended_use', String(fields.get('intended_use') || '').trim() || 'Not specified');
     payload.append('message', String(fields.get('message') || '').trim() || 'No message provided.');
     payload.append('botcheck', '');
@@ -72,11 +75,11 @@ export default function DomainLandingPage() {
         <nav aria-label="Main navigation"><a className="nav-secondary" href="#possibilities">The possibilities</a><a className="nav-cta" href="#offer">Let’s talk <Arrow diagonal /></a></nav>
       </header>
       <section className="hero page-width" aria-labelledby="hero-title">
-        <div className="hero-topline"><span className="eyebrow"><span className="status-dot" /> AVAILABLE FOR ACQUISITION</span><span className="edition">ONE NAME. YOUR NEXT CHAPTER.</span></div>
+        <div className="hero-topline"><span className="eyebrow"><span className="status-dot" /> AVAILABLE TO BUY OR RENT</span><span className="edition">ONE NAME. YOUR NEXT CHAPTER.</span></div>
         <h1 id="hero-title" className="domain-title">gethigh<span>.in</span></h1>
         <div className="hero-bottom">
           <div><p className="hero-statement">A name with<br />room to rise.</p><p className="hero-description">Two familiar words. Seven letters. A bold .in address for whatever you build next.</p></div>
-          <div className="acquisition-card"><span className="eyebrow muted">THE DOMAIN IS THE OPPORTUNITY</span><p>Your idea.<br />This address.</p><a href="#offer" className="button button-primary">Make an offer <Arrow diagonal /></a><span className="card-note">Speak directly with the owner.</span></div>
+          <div className="acquisition-card"><span className="eyebrow muted">THE DOMAIN IS THE OPPORTUNITY</span><p>Your idea.<br />This address.</p><a href="#offer" className="button button-primary">Make an offer <Arrow diagonal /></a><span className="card-note">Buy outright or rent. Speak directly with the owner.</span></div>
         </div>
         <div className="domain-facts" aria-label="Domain highlights"><span><b>07</b> letters before the dot</span><span><b>.in</b> India’s country-code domain</span><span><b>02</b> familiar English words</span></div>
       </section>
@@ -86,27 +89,28 @@ export default function DomainLandingPage() {
       </section>
       <section className="section-pad page-width" aria-labelledby="process-title">
         <div className="section-heading"><span className="eyebrow muted">02 / THE PROCESS</span><h2 id="process-title">From first hello<br /><span className="muted">to your next move.</span></h2></div>
-        <ol className="process-grid"><li><span>01</span><h3>Start the conversation</h3><p>Share your offer and a little about what you have in mind.</p></li><li><span>02</span><h3>Agree on the details</h3><p>Discuss price, payment arrangements and transfer steps directly with the owner.</p></li><li><span>03</span><h3>Make it yours</h3><p>Once terms are agreed, coordinate payment and the domain transfer.</p></li></ol>
+        <ol className="process-grid"><li><span>01</span><h3>Start the conversation</h3><p>Share your offer and a little about what you have in mind.</p></li><li><span>02</span><h3>Agree on the details</h3><p>Discuss a purchase price or monthly rent, payment arrangements and next steps directly with the owner.</p></li><li><span>03</span><h3>Get started</h3><p>Once terms are agreed, coordinate the domain transfer for a purchase or domain setup for a rental.</p></li></ol>
       </section>
       <section id="offer" className="offer-section section-pad page-width" aria-labelledby="offer-title">
-        <div className="offer-intro"><span className="eyebrow muted">03 / YOUR NEXT CHAPTER</span><h2 id="offer-title">Good things<br />start with<br /><span className="accent">a conversation.</span></h2><p>Interested in gethigh.in? Send an offer directly to the owner. This form starts a discussion and does not take payment.</p><div className="offer-domain"><span className="status-dot" /> gethigh.in <span>Available for acquisition</span></div></div>
+        <div className="offer-intro"><span className="eyebrow muted">03 / YOUR NEXT CHAPTER</span><h2 id="offer-title">Good things<br />start with<br /><span className="accent">a conversation.</span></h2><p>Interested in buying or renting gethigh.in? Send an enquiry directly to the owner. Purchase and rental terms are discussed individually. This form does not take payment.</p><div className="offer-domain"><span className="status-dot" /> gethigh.in <span>Available to buy or rent</span></div></div>
         <div className="offer-card">
-          {submitted ? <div ref={feedback} tabIndex={-1} role="status" className="success-panel"><span className="success-icon" aria-hidden="true">✓</span><h3>Your offer is on its way.</h3><p>Your offer was submitted successfully. The owner can reply to the email address you provided.</p><a className="text-link" href="#top">Back to the top <Arrow /></a></div> : <form onSubmit={handleOfferSubmit} aria-busy={submitting}>
-            <h3>Make your offer</h3><p className="form-intro">Required fields are marked with an asterisk.</p>
+          {submitted ? <div ref={feedback} tabIndex={-1} role="status" className="success-panel"><span className="success-icon" aria-hidden="true">✓</span><h3>Your enquiry is on its way.</h3><p>Your enquiry was submitted successfully. The owner can reply to the email address you provided.</p><a className="text-link" href="#top">Back to the top <Arrow /></a></div> : <form onSubmit={handleOfferSubmit} aria-busy={submitting}>
+            <h3>Buy or rent the domain</h3><p className="form-intro">Required fields are marked with an asterisk.</p>
             <fieldset disabled={submitting} className="form-fields">
+              <div><label htmlFor="enquiry-type">I’m interested in *</label><select id="enquiry-type" name="enquiry_type" value={enquiryType} onChange={(event) => setEnquiryType(event.target.value)} required><option value="buy">Buying the domain</option><option value="rent">Renting the domain</option></select></div>
               <div className="form-row"><div><label htmlFor="name">Your name *</label><input id="name" name="name" autoComplete="name" required maxLength={100} placeholder="Full name" /></div><div><label htmlFor="email">Email address *</label><input id="email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="you@company.com" /></div></div>
-              <div><label htmlFor="amount">Your offer *</label><div className="amount-row"><select name="currency" id="currency" aria-label="Offer currency" defaultValue="INR"><option value="INR">INR ₹</option><option value="USD">USD $</option></select><input id="amount" name="amount" type="number" min="0.01" step="0.01" required placeholder="Enter amount" inputMode="decimal" /></div></div>
+              <div><label htmlFor="amount">{enquiryType === 'rent' ? 'Your monthly rental offer *' : 'Your purchase offer *'}</label><div className="amount-row"><select name="currency" id="currency" aria-label="Offer currency" defaultValue="INR"><option value="INR">INR ₹</option><option value="USD">USD $</option></select><input id="amount" name="amount" type="number" min="0.01" step="0.01" required placeholder="Enter amount" inputMode="decimal" /></div></div>
               <div><label htmlFor="intended-use">What would you build? <span>Optional</span></label><input id="intended-use" name="intended_use" maxLength={300} placeholder="A brand, an experience, something new…" /></div>
               <div><label htmlFor="message">Anything else? <span>Optional</span></label><textarea id="message" name="message" rows={3} maxLength={3000} placeholder="Your questions or a little about your plans" /></div>
               <div className="honeypot" aria-hidden="true"><label htmlFor="company-website">Leave this empty</label><input id="company-website" name="company_website" tabIndex={-1} autoComplete="off" /></div>
             </fieldset>
             {error && <p role="alert" className="form-error">{error}</p>}
-            <button className="button button-primary submit-button" type="submit" disabled={submitting}>{submitting ? 'Sending your offer…' : 'Send offer'}<Arrow diagonal /></button>
+            <button className="button button-primary submit-button" type="submit" disabled={submitting}>{submitting ? 'Sending your enquiry…' : 'Send enquiry'}<Arrow diagonal /></button>
             <p className="form-note">Your details are sent to the owner through Web3Forms to respond to your enquiry.</p>
           </form>}
         </div>
       </section>
-      <section className="faq-section page-width" aria-labelledby="faq-title"><h2 className="eyebrow muted" id="faq-title">A FEW THINGS TO KNOW</h2><div className="faq-list"><details><summary>What is included in the sale?</summary><p>The gethigh.in domain name. A business, trademark, customer base or other assets are not included.</p></details><details><summary>Does submitting an offer commit me to buying?</summary><p>No. Your offer starts a conversation. Price, payment and transfer terms are discussed and agreed separately.</p></details><details><summary>How will the domain be transferred?</summary><p>The owner and buyer agree on the process before proceeding. The exact steps and timing depend on the registrars and any transfer restrictions at that time.</p></details></div></section>
+      <section className="faq-section page-width" aria-labelledby="faq-title"><h2 className="eyebrow muted" id="faq-title">A FEW THINGS TO KNOW</h2><div className="faq-list"><details><summary>What is included in the sale?</summary><p>The gethigh.in domain name. A business, trademark, customer base or other assets are not included.</p></details><details><summary>Can I rent the domain instead of buying it?</summary><p>Yes. gethigh.in is available for rent as well as purchase. Choose renting in the enquiry form and suggest a monthly amount. Rental duration, permitted use, payment and setup arrangements are agreed separately with the owner. Renting does not transfer ownership.</p></details><details><summary>Does submitting an enquiry commit me to a purchase or rental?</summary><p>No. Your enquiry starts a conversation. Price, duration, payment and other terms are discussed and agreed separately.</p></details><details><summary>How will the domain be transferred?</summary><p>The owner and buyer agree on the process before proceeding. The exact steps and timing depend on the registrars and any transfer restrictions at that time.</p></details></div></section>
       <footer className="site-footer page-width"><a href="#top" className="wordmark">gethigh<span>.in</span></a><p>A little name. A lot of possibility.</p><span>© {new Date().getFullYear()} gethigh.in</span></footer>
     </main>
   );

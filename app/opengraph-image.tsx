@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'gethigh.in — A premium .in domain, for sale';
+export const alt = 'gethigh.in | A name with room to rise';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -16,9 +16,9 @@ export default function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#0B0B14',
+          backgroundColor: '#0b0b0e',
           backgroundImage:
-            'radial-gradient(circle at 20% 20%, rgba(168,85,247,0.35), transparent 55%)',
+            'radial-gradient(circle at 80% 20%, rgba(215,245,155,0.08), transparent 55%)',
           position: 'relative',
         }}
       >
@@ -31,15 +31,12 @@ export default function Image() {
             marginBottom: 8,
           }}
         >
-          PREMIUM .IN DOMAIN
+          AVAILABLE FOR ACQUISITION
         </div>
         <div
           style={{
             fontSize: 128,
-            backgroundImage:
-              'linear-gradient(90deg, #A855F7 0%, #EC4899 55%, #F5A96E 100%)',
-            backgroundClip: 'text',
-            color: 'transparent',
+            color: '#d7f59b',
             display: 'flex',
           }}
         >
@@ -53,10 +50,11 @@ export default function Image() {
             display: 'flex',
           }}
         >
-          Ready to transfer today — make an offer
+          A name with room to rise. Make an offer.
         </div>
       </div>
     ),
     { ...size }
   );
 }
+

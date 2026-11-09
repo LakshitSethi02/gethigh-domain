@@ -1,13 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import '@fontsource/anton';
-import '@fontsource-variable/baloo-2/wght.css';
 import '@fontsource-variable/inter/wght.css';
 import './globals.css';
 
 const siteUrl = 'https://gethigh.in';
-const title = 'gethigh.in — A Premium .in Domain, For Sale';
+const title = 'gethigh.in | A name with room to rise';
 const description =
-  'gethigh.in is a seven-letter, one-word .in domain available for purchase. Ready to transfer today — make an offer, all inquiries confidential.';
+  'Acquire gethigh.in, a memorable seven-letter .in domain. Explore the possibilities and make an offer directly to the owner.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0b0b14',
+  themeColor: '#0b0b0e',
 };
 
 const jsonLd = {
@@ -61,9 +59,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-ink text-white font-sans antialiased selection:bg-grad-mid selection:text-white">
+      <body className="font-sans antialiased">
         {children}
       </body>
     </html>
   );
 }
+
